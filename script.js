@@ -1,57 +1,41 @@
 let allAnime = [];
+
 const topRated = document.getElementById("topRated");
 const trending = document.getElementById("trending");
 const myAnime = document.getElementById("myAnime");
 const loader = document.getElementById("loader");
 
-//  Top Rated 
-const topList = [
-  16498, // Attack on Titan
-  1535,  // Death Note
-  40748, // Jujutsu Kaisen
-  50594, // Suzume
-  28851  // Weathering With You
-];
+const searchBox = document.getElementById("searchInput");
+const searchResult = document.getElementById("searchResult");
+const blurBg = document.getElementById("blurBg");
+const closeBtn = document.getElementById("closeBtn");
 
-//  Trending 
-const trendingList = [
-  31964, // My Hero Academia
-  37430, // That Time I Got Reincarnated as a Slime
-  32281, // Your Name
-  9253,  // Steins;Gate
-  46569  // Hell's Paradise
-];
+// ===== LISTS =====
+const topList = [16498, 1535, 40748];
+const trendingList = [31964, 37430, 32281];
+const myList = [4181, 44511];
 
-//  My Picks 
-const myList = [
-  28851, // A Silent Voice (same ID works)
-  4181,  // Clannad After Story
-  44511, // Chainsaw Man
-  50739  // Angel Next Door
-];
-
-//  Fetch by ID
+// ===== FETCH =====
 async function fetchById(id) {
   try {
     const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
+    if (!res.ok) return null;
+
     const data = await res.json();
     return data.data;
-  } catch (err) {
-    console.log("Error:", err);
+
+  } catch {
+    return null;
   }
 }
 
-//  Create card
+// ===== CREATE CARD =====
 function createCard(anime) {
   const card = document.createElement("div");
   card.className = "card";
 
   const img = document.createElement("img");
   img.src = anime.images.jpg.large_image_url;
-  img.alt = anime.title;
-
-  const info = document.createElement("div");
-  info.className = "info";
 
   const name = document.createElement("div");
   name.className = "name";
@@ -61,16 +45,14 @@ function createCard(anime) {
   rating.className = "rating";
   rating.textContent = "⭐ " + (anime.score || "N/A");
 
-  // append elements
-  info.appendChild(name);
-  info.appendChild(rating);
-
   card.appendChild(img);
-  card.appendChild(info);
+  card.appendChild(name);
+  card.appendChild(rating);
 
   return card;
 }
 
+// ===== LOAD SECTION =====
 async function loadSection(list, container) {
   container.innerHTML = "";
 
@@ -78,46 +60,53 @@ async function loadSection(list, container) {
     const anime = await fetchById(id);
 
     if (anime) {
-      allAnime.push(anime); 
+      allAnime.push(anime);   // 🔥 IMPORTANT
       container.appendChild(createCard(anime));
     }
+
+    await new Promise(r => setTimeout(r, 400));
   }
 }
 
-//display
-function display(list) {
+
+const filter = document.getElementById("filter");
+
+filter.addEventListener("change", function () {
+  const value = this.value;
+
+  if (value === "") {
+    // show original
+    resetHome();
+    return;
+  }
+
+  const filtered = allAnime.filter(anime => {
+    return anime.score && anime.score >= value;
+  });
+
+  showFiltered(filtered);
+});
+function showFiltered(list) {
   topRated.innerHTML = "";
 
-  list.map(anime => {
+  list.forEach(anime => {
     topRated.appendChild(createCard(anime));
   });
 
   trending.innerHTML = "";
   myAnime.innerHTML = "";
 }
-//search
-document.getElementById("searchInput").addEventListener("input", function () {
-  const value = this.value.toLowerCase();
+function resetHome() {
+  topRated.innerHTML = "";
+  trending.innerHTML = "";
+  myAnime.innerHTML = "";
 
-  if (value === "") {
-    init();
-    return;
-  }
+  init();
+}
 
-  const result = allAnime.filter(anime =>
-    (anime.title_english || anime.title)
-      .toLowerCase()
-      .includes(value)
-  );
-
-  display(result);
-});
-
-//  Init
+// ===== INIT =====
 async function init() {
   loader.style.display = "block";
-
-  allAnime = []; 
 
   await loadSection(topList, topRated);
   await loadSection(trendingList, trending);
@@ -127,3 +116,53 @@ async function init() {
 }
 
 init();
+
+
+let timer;
+
+searchBox.addEventListener("input", function () {
+  clearTimeout(timer);
+
+  const value = this.value.trim();
+
+  timer = setTimeout(async () => {
+
+    if (value === "") {
+      searchResult.style.display = "none";
+      blurBg.style.display = "none";
+      closeBtn.style.display = "none";  // 🔥 hide X
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://api.jikan.moe/v4/anime?q=${value}&limit=6`);
+      const data = await res.json();
+
+      searchResult.innerHTML = "";
+      searchResult.style.display = "flex";
+      blurBg.style.display = "block";
+      closeBtn.style.display = "block"; // 🔥 show X
+
+      data.data.forEach(anime => {
+        searchResult.appendChild(createCard(anime));
+      });
+
+    } catch (err) {
+      console.log("Search error:", err);
+    }
+
+  }, 500);
+});
+
+// ===== CLOSE BUTTON =====
+closeBtn.addEventListener("click", () => {
+  searchResult.style.display = "none";
+  blurBg.style.display = "none";
+  searchBox.value = "";
+  closeBtn.style.display = "none"; // 🔥 hide X
+});
+
+// ===== CLICK OUTSIDE =====
+blurBg.addEventListener("click", () => {
+  closeBtn.click();
+});

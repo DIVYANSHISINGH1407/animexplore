@@ -6,38 +6,46 @@
 </head>
 
 <body>
-  <!--input-->
+
+  <!-- Search -->
   <input type="text" id="searchInput" placeholder="Search anime...">
+  <select id="filter">
+  <option value="">All Ratings</option>
+  <option value="8">Above 8 ⭐</option>
+  <option value="7">Above 7 ⭐</option>
+  <option value="6">Above 6 ⭐</option>
+</select>
 
-<!-- Background Video -->
-<video autoplay muted loop id="bgVideo">
-  <source src="bg video copy.mp4" type="video/mp4">
-</video>
+  <div id="blurBg"></div>
 
-<!-- Overlay -->
-<div class="overlay"></div>
+  <span id="closeBtn">X</span>
 
-<div class="main">
+  <div id="searchResult" class="grid"></div>
 
-  <h1 class="title"> AnimeXplore</h1>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="bg video  copy.mp4" type="video/mp4">
+  </video>
 
-  <div id="loader">Loading anime...</div>
+  <!-- Overlay -->
+  <div class="overlay"></div>
 
-  <!-- Top Rated -->
-  <h2> Top Rated Anime</h2>
-  <div id="topRated" class="grid"></div>
+  <div class="main">
+    <h1 class="title">AnimeXplore</h1>
 
-  <!-- Trending -->
-  <h2>Trending Anime</h2>
-  <div id="trending" class="grid"></div>
+    <div id="loader">Loading anime...</div>
 
-  <!-- My Picks -->
-  <h2>My Anime Picks</h2>
-  <div id="myAnime" class="grid"></div>
+    <h2>Top Rated Anime</h2>
+    <div id="topRated" class="grid"></div>
 
-</div>
+    <h2>Trending Anime</h2>
+    <div id="trending" class="grid"></div>
 
-<script src="script.js"></script>
+    <h2>My Anime Picks</h2>
+    <div id="myAnime" class="grid"></div>
+  </div>
+
+  <script src="script.js"></script>
 
 </body>
 </html>

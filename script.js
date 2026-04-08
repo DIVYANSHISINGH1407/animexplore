@@ -1,3 +1,4 @@
+let allAnime = [];
 const topRated = document.getElementById("topRated");
 const trending = document.getElementById("trending");
 const myAnime = document.getElementById("myAnime");
@@ -42,20 +43,34 @@ async function fetchById(id) {
 
 //  Create card
 function createCard(anime) {
-  return `
-    <div class="card">
-      <img src="${anime.images.jpg.large_image_url}" alt="${anime.title}">
-      <div class="info">
-        <div class="name">
-            ${anime.title_english || anime.title}
-        </div>
-        <div class="rating">⭐ ${anime.score || "N/A"}</div>
-      </div>
-    </div>
-  `;
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const img = document.createElement("img");
+  img.src = anime.images.jpg.large_image_url;
+  img.alt = anime.title;
+
+  const info = document.createElement("div");
+  info.className = "info";
+
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = anime.title_english || anime.title;
+
+  const rating = document.createElement("div");
+  rating.className = "rating";
+  rating.textContent = "⭐ " + (anime.score || "N/A");
+
+  // append elements
+  info.appendChild(name);
+  info.appendChild(rating);
+
+  card.appendChild(img);
+  card.appendChild(info);
+
+  return card;
 }
 
-//  Load section
 async function loadSection(list, container) {
   container.innerHTML = "";
 
@@ -63,14 +78,46 @@ async function loadSection(list, container) {
     const anime = await fetchById(id);
 
     if (anime) {
-      container.innerHTML += createCard(anime);
+      allAnime.push(anime); 
+      container.appendChild(createCard(anime));
     }
   }
 }
 
+//display
+function display(list) {
+  topRated.innerHTML = "";
+
+  list.map(anime => {
+    topRated.appendChild(createCard(anime));
+  });
+
+  trending.innerHTML = "";
+  myAnime.innerHTML = "";
+}
+//search
+document.getElementById("searchInput").addEventListener("input", function () {
+  const value = this.value.toLowerCase();
+
+  if (value === "") {
+    init();
+    return;
+  }
+
+  const result = allAnime.filter(anime =>
+    (anime.title_english || anime.title)
+      .toLowerCase()
+      .includes(value)
+  );
+
+  display(result);
+});
+
 //  Init
 async function init() {
   loader.style.display = "block";
+
+  allAnime = []; 
 
   await loadSection(topList, topRated);
   await loadSection(trendingList, trending);

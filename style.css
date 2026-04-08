@@ -88,3 +88,78 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
 }
+@media (max-width: 1024px) {
+  .main {
+    width: 92%;
+    margin: 24px auto;
+    padding: 20px 12px 28px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin: 24px 0 14px;
+  }
+
+  .card {
+    width: 180px;
+  }
+
+  .card img {
+    height: 260px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 768px) {
+  .main {
+    width: 95%;
+    margin: 16px auto;
+    padding: 16px 10px 24px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 18px 0 10px;
+    text-align: left;
+  }
+
+  .grid {
+    gap: 14px;
+  }
+
+  .card {
+    width: 140px;
+  }
+
+  .card img {
+    height: 210px;
+  }
+
+  .name {
+    font-size: 12px;
+  }
+
+  .rating {
+    font-size: 12px;
+  }
+}
+
+/* Very small screens (old phones) */
+@media (max-width: 480px) {
+  .card {
+    width: 130px;
+  }
+
+  .card img {
+    height: 190px;
+  }
+}

@@ -11,9 +11,9 @@ const blurBg = document.getElementById("blurBg");
 const closeBtn = document.getElementById("closeBtn");
 
 // ===== LISTS =====
-const topList = [16498, 1535, 40748];
-const trendingList = [31964, 37430, 32281];
-const myList = [4181, 44511];
+const topList = [16498, 1535, 40748,9253  ];
+const trendingList = [31964, 37430, 32281,28851];
+const myList = [4181, 44511,50739, 28851 ];
 
 // ===== FETCH =====
 async function fetchById(id) {

@@ -1,51 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AnimeXplore</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-  <!-- Search -->
-  <input type="text" id="searchInput" placeholder="Search anime...">
-  <select id="filter">
-  <option value="">All Ratings</option>
-  <option value="8">Above 8 ⭐</option>
-  <option value="7">Above 7 ⭐</option>
-  <option value="6">Above 6 ⭐</option>
-</select>
-
-  <div id="blurBg"></div>
-
-  <span id="closeBtn">X</span>
-
-  <div id="searchResult" class="grid"></div>
-
-  <!-- Background Video -->
-  <video autoplay muted loop id="bgVideo">
+  <video autoplay muted loop playsinline id="bgVideo">
     <source src="bg dragon copy.mp4" type="video/mp4">
   </video>
 
-  <!-- Overlay -->
   <div class="overlay"></div>
 
-  <div class="main">
-    <h1 class="title">AnimeXplore</h1>
+  <h1 class="site-title">AnimeXplore</h1>
 
-    <div id="loader">Loading anime...</div>
-
-    <h2>Top Rated Anime</h2>
-    <div id="topRated" class="grid"></div>
-
-    <h2>Trending Anime</h2>
-    <div id="trending" class="grid"></div>
-
-    <h2>My Anime Picks</h2>
-    <div id="myAnime" class="grid"></div>
+  <div id="profileBox" class="profile-box">
+    <span id="profileName"></span>
+    <button id="logoutBtn">Logout</button>
   </div>
 
-  <script src="script.js"></script>
+  <div class="hero">
+    <div class="hero-left">
+      <h1>FIND YOUR NEXT<br>OBSESSION IN<br>SECONDS.</h1>
 
+      <p>
+        Discover anime instantly. Search, filter, and explore trending shows.
+      </p>
+
+      <div class="hero-features">
+        <span>Trending Anime</span>
+        <span>Top Rated</span>
+      </div>
+
+      <button id="exploreBtn">Explore Now</button>
+    </div>
+  </div>
+
+  <div class="controls-container">
+    <input type="text" id="searchInput" placeholder="Search anime...">
+
+    <select id="filter">
+      <option value="">All Ratings</option>
+      <option value="8">Above 8 ⭐</option>
+      <option value="7">Above 7 ⭐</option>
+      <option value="6">Above 6 ⭐</option>
+    </select>
+  </div>
+
+  <div id="blurBg"></div>
+  <span id="closeBtn">X</span>
+  <div id="searchResult" class="grid"></div>
+
+  <div id="authModal" class="modal">
+    <div class="modal-box">
+      <h2>Welcome Back</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <p id="loginMessage"></p>
+    </div>
+  </div>
+
+  <div class="main">
+    <div id="loader">Loading anime...</div>
+
+    <div id="topSection">
+      <h2>Top Rated Anime</h2>
+      <div id="topRated" class="grid"></div>
+    </div>
+
+    <div id="trendingSection">
+      <h2>Trending Anime</h2>
+      <div id="trending" class="grid"></div>
+    </div>
+
+    <div id="mySection">
+      <h2>My Anime Picks</h2>
+      <div id="myAnime" class="grid"></div>
+    </div>
+  </div>
+  <div id="detailModal" class="detail-modal">
+  <div class="detail-box">
+    <span id="detailCloseBtn" class="detail-close">X</span>
+
+    <img id="detailImage" src="" alt="Anime Poster">
+
+    <div class="detail-content">
+      <h2 id="detailTitle">Anime Title</h2>
+      <p id="detailScore"></p>
+      <p id="detailEpisodes"></p>
+      <p id="detailSynopsis"></p>
+
+      <a id="watchNowBtn" href="#" target="_blank">Watch Now</a>
+    </div>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
 </body>
 </html>
+
+

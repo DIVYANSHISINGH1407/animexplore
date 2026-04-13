@@ -178,7 +178,6 @@ body {
   justify-content: center;
 }
 
-
 /* CARD */
 .card {
   width: 220px;
@@ -243,10 +242,10 @@ body {
   z-index: 10;
   padding-bottom: 20px;
 }
+
 body.no-scroll {
   overflow: hidden;
 }
-
 
 #closeBtn {
   position: fixed;
@@ -318,6 +317,7 @@ body.no-scroll {
   font-size: 14px;
   color: white;
 }
+
 .detail-modal {
   position: fixed;
   top: 0;
@@ -410,7 +410,6 @@ body.no-scroll {
   }
 }
 
-
 /* MOBILE */
 @media (max-width: 768px) {
   .site-title {
@@ -466,14 +465,8 @@ body.no-scroll {
     height: 250px;
   }
 
- #searchResult {
-  width: 90%;
-  top: 110px;
+  #searchResult {
+    width: 90%;
+    top: 110px;
+  }
 }
-
-}
-
-
-
-
-

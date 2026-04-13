@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AnimeXplore</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <video autoplay muted loop playsinline id="bgVideo">
@@ -80,26 +80,28 @@
       <div id="myAnime" class="grid"></div>
     </div>
   </div>
+
   <div id="detailModal" class="detail-modal">
-  <div class="detail-box">
-    <span id="detailCloseBtn" class="detail-close">X</span>
+    <div class="detail-box">
+      <span id="detailCloseBtn" class="detail-close">X</span>
 
-    <img id="detailImage" src="" alt="Anime Poster">
+      <img id="detailImage" src="" alt="Anime Poster">
 
-    <div class="detail-content">
-      <h2 id="detailTitle">Anime Title</h2>
-      <p id="detailScore"></p>
-      <p id="detailEpisodes"></p>
-      <p id="detailSynopsis"></p>
+      <div class="detail-content">
+        <h2 id="detailTitle">Anime Title</h2>
+        <p id="detailScore"></p>
+        <p id="detailEpisodes"></p>
+        <p id="detailSynopsis"></p>
 
-      <a id="watchNowBtn" href="#" target="_blank">Watch Now</a>
+        <a id="watchNowBtn" href="#" target="_blank">Watch Now</a>
+      </div>
     </div>
   </div>
-</div>
 
-
-  <script type="module" src="js/main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
